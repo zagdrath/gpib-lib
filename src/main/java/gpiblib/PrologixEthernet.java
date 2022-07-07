@@ -13,8 +13,8 @@
 
 package gpiblib;
 
-import java.io.IOException;
 import java.net.Socket;
+import java.io.IOException;
 
 public class PrologixEthernet {
     private String ipAddress;

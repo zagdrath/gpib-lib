@@ -8,7 +8,7 @@
  * Author: Cody L. Wellman <zecoderex@gmail.com>
  * 
  * Created: July 06, 2022
- * Updated: July 06, 2022
+ * Updated: July 07, 2022
  */
 
 package gpiblib;
@@ -16,5 +16,4 @@ package gpiblib;
 public class SystemBus {
     public SystemBus() {
     }
-
 }
