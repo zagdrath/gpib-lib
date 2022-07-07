@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URLConnection;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.nio.charset.Charset;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import javax.script.ScriptException;
@@ -43,6 +44,15 @@ public class PrologixEthernet {
         }
 
         openConnection(prologixURL);
+    }
+
+    private void defaultConfig() throws IOException {
+        prologixWriteCommand(modeCommand + " 1");      // Set to controller mode
+        prologixWriteCommand(ifcCommand);              // Set to controller in charge
+        prologixWriteCommand(eoiCommand + " 1");       // Enable EOI assertion with last character
+        prologixWriteCommand(eosCommand + " 3");       // Do not append anything
+        prologixWriteCommand(eotEnableCommand + " 0"); // Do not append any character
+        prologixWriteCommand(autoCommand + " 0");      // Do not auto address instruments
     }
 
     // Addressing
@@ -132,4 +142,44 @@ public class PrologixEthernet {
     private final String triggerCommand = "++trg";
     private final String versionCommand = "++ver";
     private final String helpCommand = "++help";
+
+    // Prologix Write Raw
+
+    private final static byte lfByte = (byte) 10;
+
+    private final static byte prologixTerminator = lfByte;
+
+    private void prologixWriteRaw(byte[] bytes) throws IOException, IllegalArgumentException {
+        if (bytes == null) {
+            throw new IllegalArgumentException("ERROR: Invalid Bytes");
+        }
+
+        URLConnection prologixURLConnection = this.prologixURLConnection;
+
+        if (prologixURLConnection == null) {
+            throw new IOException("ERROR: Invalid URL");
+        }
+
+        this.prologixURLConnection.getOutputStream().write(bytes);
+    }
+
+    private void prologixWriteRaw(String string) throws IOException, IllegalArgumentException {
+        if (string == null) {
+            throw new IllegalArgumentException("ERROR: Invalid String");
+        }
+
+        prologixWriteRaw(string.getBytes(Charset.forName("US-ASCII")));
+    }
+
+    private void prologixWriteCommand(String command) throws IOException, IllegalArgumentException {
+        if (command == null || command.length() < 2) {
+            throw new IllegalArgumentException("ERROR: Invalid Command");
+        }
+
+        if (!command.startsWith("++")) {
+            throw new IllegalArgumentException("ERROR: Invalid Command");
+        }
+
+        prologixWriteRaw(command + new String(new byte[] { prologixTerminator }, Charset.forName("US-ASCII")));
+    }
 }
