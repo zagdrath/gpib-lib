@@ -21,7 +21,7 @@ public class BusAddress {
     private final static byte minNonZeroSecondary = (byte) 0x60;
     private final static byte maxNonZeroSecondary = (byte) 0x7e;
 
-    public BusAddress(byte busAddressPrimary, byte busAddressSecondary) {
+    public BusAddress(byte busAddressPrimary, byte busAddressSecondary) throws IllegalArgumentException {
         if (busAddressPrimary < 0 || busAddressPrimary > 30) {
             throw new IllegalArgumentException("ERROR: Invalid Primary Bus Address");
         } else {

@@ -13,99 +13,98 @@
 
 package gpiblib;
 
-import java.net.Socket;
+import java.net.URL;
 import java.io.IOException;
+import java.net.URLConnection;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import javax.script.ScriptException;
+import java.net.UnknownServiceException;
 
 public class PrologixEthernet {
-    private String ipAddress;
-    private int tcpPort;
+    private URL prologixURL;
+    private URLConnection prologixURLConnection;
+
+    private BufferedReader inputStream;
+    private BufferedWriter outputStream;
 
     /**
      * Constructs and configures the Prologix Ethernet.
      * 
-     * @param ipAddress
-     * @param tcpPort
+     * @param prologixURL
      */
-    public PrologixEthernet(String ipAddress, int tcpPort) {
-        if (ipAddress == null || ipAddress.trim().isBlank()) {
-            throw new IllegalArgumentException("ERROR: Invalid IP Address");
+    public PrologixEthernet(URL prologixURL) throws IllegalArgumentException, ScriptException {
+        if (prologixURL == null) {
+            throw new IllegalArgumentException("ERROR: Invalid URL");
         } else {
-            this.ipAddress = ipAddress.trim();
+            this.prologixURL = prologixURL;
         }
 
-        if (tcpPort < 0 || tcpPort > 65535) {
-            throw new IllegalArgumentException("ERROR: Invalid TCP Port");
-        } else {
-            this.tcpPort = tcpPort;
-        }
-
-        openConnection(ipAddress, tcpPort);
+        openConnection(prologixURL);
     }
 
     // Addressing
 
-    /** 
-     * Get's the IP address.
+    /**
+     * Get's the URL.
      * 
-     * @return IP address
+     * @return Prologix URL
      */
-    public String getIpAddress() {
-        return ipAddress;
+    public URL getProglogixURL() {
+        return prologixURL;
     }
 
     /**
-     * Set's the IP address.
+     * Set's the URL.
      * 
-     * @param ipAddress
+     * @param prologixURL
      */
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
+    public void setPrologixURL(URL prologixURL) {
+        this.prologixURL = prologixURL;
     }
 
-    /**
-     * Get's the TCP port.
-     * 
-     * @return TCP port
-     */
-    public int getTcpPort() {
-        return tcpPort;
-    }
-
-    /**
-     * Set's the TCP port.
-     * 
-     * @param tcpPort
-     */
-    public void setTcpPort(int tcpPort) {
-        this.tcpPort = tcpPort;
-    }
-
-    // Socket Connections
-
-    private Socket socket;
+    // Network Connections
 
     /**
      * Opens the network connection to the Prologix Ethernet.
      * 
-     * @param ipAddress
-     * @param tcpPort
+     * @param prologixURL
      */
-    public void openConnection(String ipAddress, int tcpPort) {
+    public void openConnection(URL prologixURL) throws ScriptException {
+        prologixURLConnection = null;
+
         try {
-            socket = new Socket(ipAddress, tcpPort);
+            prologixURLConnection = prologixURL.openConnection();
+            prologixURLConnection.setDoOutput(true);
+            prologixURLConnection.connect();
+
+            inputStream = new BufferedReader(new InputStreamReader(prologixURLConnection.getInputStream()));
+            outputStream = new BufferedWriter(new OutputStreamWriter(prologixURLConnection.getOutputStream()));
+        } catch (NullPointerException e) {
+            throw new ScriptException("ERROR: Could not Open Network Connection");
+        } catch (UnknownServiceException e) {
+            throw new ScriptException("ERROR: Could not Open Network Connection");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ScriptException("ERROR: Could not Open Network Connection");
         }
     }
 
     /**
      * Closes the network connection to the Prologix Ethernet.
      */
-    public void closeConnection() {
+    public void closeConnection() throws IOException {
         try {
-            socket.close();
+            if (inputStream != null) {
+                inputStream.close();
+            }
+
+            if (outputStream != null) {
+                outputStream.close();
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IOException("ERROR: Could not Close Network Connection");
         }
     }
 
