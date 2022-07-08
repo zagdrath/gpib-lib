@@ -22,4 +22,27 @@ public class Instrument {
         this.busAddress = busAddress;
     }
 
+    public void getInstrumentName() {
+
+    }
+
+    public void setInstrumentName() {
+
+    }
+
+    public void getBusAddress() {
+
+    }
+
+    public void setBusAddress() {
+        
+    }
+
+    public void getPoweredOn() {
+
+    }
+
+    public void setPoweredOn() {
+
+    }
 }

@@ -411,16 +411,20 @@ public class PrologixEthernet {
 
     // Prologix Commands
 
-    public BusAddress getBusAddress() {
-
+    public String getBusAddress() throws IllegalArgumentException, IOException, InterruptedException, TimeoutException {
+        prologixWriteCommand(addressCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
     public void setBusAddress(BusAddress busAddress) throws IOException {
         prologixWriteCommand(addressCommand + "" + busAddress);
     }
 
-    public String getAuto() {
-
+    public String getAuto() throws IllegalArgumentException, IOException, InterruptedException, TimeoutException {
+        prologixWriteCommand(autoCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
     public void setAuto(int value) throws IOException {
@@ -431,32 +435,40 @@ public class PrologixEthernet {
         prologixWriteCommand(clearCommand);
     }
 
-    public string getEOI() {
-
+    public String getEOI() throws IllegalArgumentException, IOException, InterruptedException, TimeoutException {
+        prologixWriteCommand(eoiCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
     public void setEOI(int value) throws IOException {
         prologixWriteCommand(eoiCommand + "" + value);
     }
 
-    public String getEOS() {
-
+    public String getEOS() throws IllegalArgumentException, IOException, InterruptedException, TimeoutException {
+        prologixWriteCommand(eosCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
     public void setEOS(int value) throws IOException {
         prologixWriteCommand(eosCommand + "" + value);
     }
 
-    public String getEOTEnable() {
-
+    public String getEOTEnable() throws IllegalArgumentException, IOException, InterruptedException, TimeoutException {
+        prologixWriteCommand(eotEnableCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
     public void setEOTEnable(int value) throws IOException {
         prologixWriteCommand(eotEnableCommand + "" + value);
     }
 
-    public String getEOTChar() {
-
+    public String getEOTChar() throws IllegalArgumentException, IOException, InterruptedException, TimeoutException {
+        prologixWriteCommand(eotCharCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
     public void setEOTChar(int value) throws IOException {
@@ -475,24 +487,30 @@ public class PrologixEthernet {
         prologixWriteCommand(locCommand);
     }
 
-    public String getLON() {
-
+    public String getLON() throws IllegalArgumentException, IOException, InterruptedException, TimeoutException {
+        prologixWriteCommand(lonCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
     public void setLON(int value) throws IOException {
         prologixWriteCommand(lonCommand + "" + value);
     }
 
-    public String getMode() {
-
+    public String getMode() throws IllegalArgumentException, IOException, InterruptedException, TimeoutException {
+        prologixWriteCommand(modeCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
     public void setMode(int value) throws IOException {
         prologixWriteCommand(modeCommand + "" + value);
     }
 
-    public void sendRead() throws IOException {
+    public String getRead() throws IOException, InterruptedException, TimeoutException {
         prologixWriteCommand(readCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
     // Look into how to do read command
@@ -505,24 +523,38 @@ public class PrologixEthernet {
         prologixWriteCommand(resetCommand);
     }
 
-    public String getSaveConfig() {
-
+    public String getSaveConfig() throws IllegalArgumentException, IOException, InterruptedException, TimeoutException {
+        prologixWriteCommand(saveConfigCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
     public void setSaveConfig(int value) throws IOException {
         prologixWriteCommand(saveConfigCommand + "" + value);
     }
 
-    public void sendSpoll() throws IOException {
+    public String sendSpoll() throws IOException, InterruptedException, TimeoutException {
         prologixWriteCommand(spollCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
-    public void sendSpoll(BusAddress busAddress) throws IOException {
+    public String sendSpoll(BusAddress busAddress) throws IOException, InterruptedException, TimeoutException {
         prologixWriteCommand(spollCommand + "" + busAddress);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
-    public String getStatus() throws IOException {
+    public String getSRQ() throws IOException, InterruptedException, TimeoutException {
+        prologixWriteCommand(srqCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
+    }
+
+    public String getStatus() throws IOException, InterruptedException, TimeoutException {
         prologixWriteCommand(statusCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
     public void sendStatus(int value) throws IOException {
@@ -531,12 +563,15 @@ public class PrologixEthernet {
 
     // Look into how to do trg command
 
-    public String getVersion() throws IOException {
+    public String getVersion() throws IOException, InterruptedException, TimeoutException {
         prologixWriteCommand(versionCommand);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 
-    public byte[] getHelp() throws IOException, InterruptedException, TimeoutException {
+    public String getHelp() throws IOException, InterruptedException, TimeoutException {
         prologixWriteCommand(helpCommand);
-        return prologixReadLine(ReadlineTerminationMode.CR_LF, 10);
+        prologixClearReadBuffer();
+        return prologixReadLine(ReadlineTerminationMode.LF, 10).toString();
     }
 }
