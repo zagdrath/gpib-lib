@@ -57,6 +57,10 @@ public class PrologixEthernet {
         defaultConfig();
     }
 
+    public PrologixEthernet() {
+        
+    }
+
     private void defaultConfig() throws IOException {
         prologixWriteCommand(modeCommand + " 1"); // Set to controller mode
         prologixWriteCommand(ifcCommand); // Set to controller in charge
@@ -173,7 +177,7 @@ public class PrologixEthernet {
     private final static ReadlineTerminationMode readlineTerminationMode =
             ReadlineTerminationMode.OPTCR_LF;
 
-    private byte[] prologixReadLine(ReadlineTerminationMode readlineTerminationMode, long timeoutMs)
+    public byte[] prologixReadLine(ReadlineTerminationMode readlineTerminationMode, long timeoutMs)
             throws IOException, InterruptedException, TimeoutException {
         if (timeoutMs <= 0) {
             throw new TimeoutException();
@@ -309,7 +313,7 @@ public class PrologixEthernet {
         }
     }
 
-    private void prologixClearReadBuffer() {
+    public void prologixClearReadBuffer() {
         List<Byte> drainedBytes = new ArrayList<>();
 
         this.readBytes.drainTo(drainedBytes);
@@ -396,7 +400,7 @@ public class PrologixEthernet {
 
     // Prologix Write Command
 
-    private void prologixWriteCommand(String command) throws IOException, IllegalArgumentException {
+    public void prologixWriteCommand(String command) throws IOException, IllegalArgumentException {
         if (command == null || command.length() < 2) {
             throw new IllegalArgumentException("ERROR: Invalid Command");
         }
