@@ -11,7 +11,7 @@
  * Updated: July 07, 2022
  */
 
-package gpiblib.util;
+package xyz.zagdrath.gpiblib.util;
 
 public enum ReadlineTerminationMode {
     CR,

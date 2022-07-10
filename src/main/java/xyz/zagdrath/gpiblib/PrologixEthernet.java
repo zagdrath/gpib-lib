@@ -11,7 +11,7 @@
  * Updated: July 07, 2022
  */
 
-package gpiblib;
+package xyz.zagdrath.gpiblib;
 
 import java.net.URL;
 import java.util.List;
@@ -24,13 +24,12 @@ import java.nio.charset.Charset;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import javax.script.ScriptException;
+import xyz.zagdrath.gpiblib.util.ReadlineTerminationMode;
 import java.io.ByteArrayOutputStream;
 import java.util.concurrent.TimeUnit;
 import java.net.UnknownServiceException;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.LinkedBlockingQueue;
-
-import gpiblib.util.ReadlineTerminationMode;
 
 public class PrologixEthernet {
     private URL prologixURL;

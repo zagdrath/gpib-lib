@@ -8,24 +8,33 @@
  * Author: Cody L. Wellman <zecoderex@gmail.com>
  * 
  * Created: July 07, 2022
- * Updated: July 08, 2022
+ * Updated: July 10, 2022
  */
 
-package gpiblib.instrument;
+package xyz.zagdrath.gpiblib.instrument;
 
-import gpiblib.BusAddress;
-import gpiblib.Instrument;
 import java.io.IOException;
-import gpiblib.PrologixEthernet;
 import javax.script.ScriptException;
 import java.util.concurrent.TimeoutException;
 
-import gpiblib.util.ReadlineTerminationMode;
-import gpiblib.instrument.Commands.HP5334Commands;
+import xyz.zagdrath.gpiblib.BusAddress;
+import xyz.zagdrath.gpiblib.Instrument;
+import xyz.zagdrath.gpiblib.PrologixEthernet;
+import xyz.zagdrath.gpiblib.util.ReadlineTerminationMode;
+import xyz.zagdrath.gpiblib.instrument.Commands.HP5334Commands;
 
 public class HP5334 extends Instrument {
     private PrologixEthernet prologixEthernet;
 
+    /**
+     * Factory constructor to create new instances of a HP5334.
+     * 
+     * @param instrumentName
+     * @param busAddress
+     * @throws IllegalArgumentException
+     * @throws IOException
+     * @throws ScriptException
+     */
     public HP5334(String instrumentName, BusAddress busAddress)
             throws IllegalArgumentException, IOException, ScriptException {
         super(instrumentName, busAddress);
@@ -33,8 +42,14 @@ public class HP5334 extends Instrument {
         prologixEthernet = new PrologixEthernet();
     }
 
-    // HP 5334 Commands
-
+    /**
+     * Set's the coupling.
+     * 
+     * @param input
+     * @param type
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     public void setCoupling(String input, String type)
             throws IllegalArgumentException, IOException {
         if (input == "a" || type == "AC") {
@@ -62,6 +77,14 @@ public class HP5334 extends Instrument {
         }
     }
 
+    /**
+     * Set's the slope.
+     * 
+     * @param input
+     * @param polarity
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     public void setSlope(String input, String polarity)
             throws IllegalArgumentException, IOException {
         if (input == "a" || polarity == "positive") {
@@ -89,6 +112,14 @@ public class HP5334 extends Instrument {
         }
     }
 
+    /**
+     * Set's the trigger level.
+     * 
+     * @param input
+     * @param value
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     public void setTriggerLevel(String input, double value)
             throws IllegalArgumentException, IOException {
         if (input == "a") { // TODO: Trigger level limiting +-5.1
@@ -104,6 +135,13 @@ public class HP5334 extends Instrument {
         }
     }
 
+    /**
+     * Set's the auto trigger.
+     * 
+     * @param value
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     public void setAutoTrigger(boolean value) throws IllegalArgumentException, IOException {
         if (value == false) {
             prologixEthernet.prologixWriteCommand(HP5334Commands.autoTrigOff);
@@ -118,6 +156,14 @@ public class HP5334 extends Instrument {
         }
     }
 
+    /**
+     * Set's the attenuation.
+     * 
+     * @param input
+     * @param value
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     public void setAttenuation(String input, int value)
             throws IllegalArgumentException, IOException {
         if (input == "a" || value == 1) {
@@ -145,6 +191,14 @@ public class HP5334 extends Instrument {
         }
     }
 
+    /**
+     * Set's the impedance.
+     * 
+     * @param input
+     * @param value
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     public void setImpedance(String input, int value) throws IllegalArgumentException, IOException {
         if (input == "a" || value == 1) {
             prologixEthernet.prologixWriteCommand(HP5334Commands.inputAImpedance1M);
@@ -171,6 +225,13 @@ public class HP5334 extends Instrument {
         }
     }
 
+    /**
+     * Set's the common input.
+     * 
+     * @param value
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     public void setCommonInputs(boolean value) throws IllegalArgumentException, IOException {
         if (value == false) {
             prologixEthernet.prologixWriteCommand(HP5334Commands.comInputsOff);
@@ -185,6 +246,13 @@ public class HP5334 extends Instrument {
         }
     }
 
+    /**
+     * Set's the input filter.
+     * 
+     * @param value
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     public void setInputFilter(boolean value) throws IllegalArgumentException, IOException {
         if (value == false) {
             prologixEthernet.prologixWriteCommand(HP5334Commands.inputFilterOff);
@@ -199,6 +267,13 @@ public class HP5334 extends Instrument {
         }
     }
 
+    /**
+     * Set's the sensitivity mode.
+     * 
+     * @param value
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     public void setSensitivityMode(boolean value) throws IllegalArgumentException, IOException {
         if (value == false) {
             prologixEthernet.prologixWriteCommand(HP5334Commands.sensModeOff);
@@ -213,6 +288,13 @@ public class HP5334 extends Instrument {
         }
     }
 
+    /**
+     * Set's the sensitivity levels.
+     * 
+     * @param value
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     public void setSensitivityLevels(boolean value) throws IllegalArgumentException, IOException {
         if (value == false) {
             prologixEthernet.prologixWriteCommand(HP5334Commands.remoteTrigLevelsOff);
@@ -227,6 +309,14 @@ public class HP5334 extends Instrument {
         }
     }
 
+    /**
+     * Set's the arm start.
+     * 
+     * @param value
+     * @param polarity
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     public void setArmStart(boolean value, String polarity)
             throws IllegalArgumentException, IOException {
         if (value == false) {
@@ -250,6 +340,14 @@ public class HP5334 extends Instrument {
         }
     }
 
+    /**
+     * Set's the arm stop.
+     * 
+     * @param value
+     * @param polarity
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     public void setArmStop(boolean value, String polarity)
             throws IllegalArgumentException, IOException {
         if (value == false) {
@@ -275,6 +373,16 @@ public class HP5334 extends Instrument {
 
     private String frequency;
 
+    /**
+     * Get's the currently measured frequency.
+     * 
+     * @param input
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws TimeoutException
+     */
     public String getFrequency(String input)
             throws IllegalArgumentException, IOException, InterruptedException, TimeoutException {
         if (input == "a") {
@@ -313,6 +421,15 @@ public class HP5334 extends Instrument {
         return frequency;
     }
 
+    /**
+     * Get's the currently measured period.
+     * 
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws TimeoutException
+     */
     public String getPeriod()
             throws IllegalArgumentException, IOException, InterruptedException, TimeoutException {
         prologixEthernet.prologixWriteCommand(HP5334Commands.periodA);
@@ -324,6 +441,16 @@ public class HP5334 extends Instrument {
 
     private String timeInterval;
 
+    /**
+     * Get's the currently measured time interval.
+     * 
+     * @param delay
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws TimeoutException
+     */
     public String getTimeInterval(boolean delay)
             throws IllegalArgumentException, IOException, InterruptedException, TimeoutException {
         if (delay == false) {
@@ -351,6 +478,15 @@ public class HP5334 extends Instrument {
         return timeInterval;
     }
 
+    /**
+     * Get's the currently measured ratio.
+     * 
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws TimeoutException
+     */
     public String getRatio()
             throws IllegalArgumentException, IOException, InterruptedException, TimeoutException {
         prologixEthernet.prologixWriteCommand(HP5334Commands.ratioAB);

@@ -11,7 +11,7 @@
  * Updated: July 07, 2022
  */
 
-package gpiblib.instrument;
+package xyz.zagdrath.gpiblib.instrument;
 
 public class Commands {
     public class HP5334Commands {
