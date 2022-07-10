@@ -16,11 +16,12 @@ package gpiblib.instrument;
 import gpiblib.BusAddress;
 import gpiblib.Instrument;
 import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 import gpiblib.PrologixEthernet;
 import javax.script.ScriptException;
-import gpiblib.instrument.Commands.HP5334Commands;
+import java.util.concurrent.TimeoutException;
+
 import gpiblib.util.ReadlineTerminationMode;
+import gpiblib.instrument.Commands.HP5334Commands;
 
 public class HP5334 extends Instrument {
     private PrologixEthernet prologixEthernet;

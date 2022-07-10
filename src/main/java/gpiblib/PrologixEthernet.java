@@ -388,11 +388,11 @@ public class PrologixEthernet {
         return byteArrayOutputStream.toByteArray();
     }
 
-    private void prologixWriteCooked(byte[] bytes) throws IOException, IllegalArgumentException {
+    public void prologixWriteCooked(byte[] bytes) throws IOException, IllegalArgumentException {
         prologixWriteRaw(prologixCookString(bytes));
     }
 
-    private void prologixWriteCooked(String string) throws IOException, IllegalArgumentException {
+    public void prologixWriteCooked(String string) throws IOException, IllegalArgumentException {
         if (string == null) {
             throw new IllegalArgumentException("ERROR: Invalid String");
         }
