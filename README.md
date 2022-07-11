@@ -2,14 +2,14 @@ Java API for GPIB instrument control.
 
 ### Usage
 Step 1, add the jitpack repository to your build file.
-```
+```gradle
 repositories {
 	maven { url 'https://jitpack.io' }
 }
 ```
 
 Step 2, add the dependency to your build file.
-```
+```gradle
 dependencies {
 	implementation 'com.github.zagdrath:gpib-lib:master-SNAPSHOT'
 }
