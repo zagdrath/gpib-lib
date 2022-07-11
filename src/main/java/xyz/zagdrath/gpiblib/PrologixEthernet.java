@@ -43,6 +43,9 @@ public class PrologixEthernet {
      * Constructs and configures the Prologix Ethernet.
      * 
      * @param prologixURL
+     * @throws IOException
+     * @throws IllegalArgumentException
+     * @throws ScriptException
      */
     public PrologixEthernet(URL prologixURL)
             throws IOException, IllegalArgumentException, ScriptException {
@@ -61,6 +64,11 @@ public class PrologixEthernet {
         
     }
 
+    /**
+     * Configures the Prologix Ethernet with default settings.
+     * 
+     * @throws IOException
+     */
     private void defaultConfig() throws IOException {
         prologixWriteCommand(modeCommand + " 1"); // Set to controller mode
         prologixWriteCommand(ifcCommand); // Set to controller in charge
@@ -75,7 +83,7 @@ public class PrologixEthernet {
     /**
      * Get's the URL.
      * 
-     * @return Prologix URL
+     * @return prologixURL
      */
     public URL getProglogixURL() {
         return prologixURL;
@@ -121,6 +129,8 @@ public class PrologixEthernet {
 
     /**
      * Closes the network connection to the Prologix Ethernet.
+     * 
+     * @throws IOException
      */
     public void closeConnection() throws IOException {
         try {
