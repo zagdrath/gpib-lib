@@ -27,7 +27,7 @@ public class HP5334 extends Instrument {
     private PrologixEthernet prologixEthernet;
 
     /**
-     * Factory constructor to create new instances of a HP5334.
+     * Factory constructor to create new instances of a HP 5334.
      * 
      * @param instrumentName
      * @param busAddress

@@ -8,7 +8,7 @@
  * Author: Cody L. Wellman <zecoderex@gmail.com>
  * 
  * Created: July 06, 2022
- * Updated: July 10, 2022
+ * Updated: July 11, 2022
  */
 
 package xyz.zagdrath.gpiblib;
@@ -26,7 +26,7 @@ public class Instrument {
     /**
      * Get's the instrument name.
      * 
-     * @return
+     * @return instrumentName
      */
     public String getInstrumentName() {
         return instrumentName;
@@ -44,7 +44,7 @@ public class Instrument {
     /**
      * Get's the bus address.
      * 
-     * @return
+     * @return busAddress
      */
     public BusAddress getBusAddress() {
         return busAddress;
