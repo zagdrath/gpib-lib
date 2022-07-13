@@ -1,3 +1,5 @@
+![(GPIBLib Logo)](https://cdn.discordapp.com/attachments/740837678672642120/996597047522242570/logo.png)
+
 Java API for GPIB instrument control. 
 
 ### Usage
